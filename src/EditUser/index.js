@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
+import { Form, Button, TextArea, Label} from 'semantic-ui-react'
+
 
 function EditUser(props) {
 	return(
 		<div>
-			<form onSubmit={props.updateUser}>
-				<label>Bio:</label>
-				<input type='text' name='bio' value={props.updateUser.bio} onChange={props.handleEditChange}/>
-				<button type="submit">Update your bio</button>
-			</form>
+			<Form onSubmit={props.updateUser}>
+				<Label>Bio:</Label>
+				<Form.TextArea type='text' name='bio' value={props.updateUser.bio} onChange={props.handleEditChange}/>
+				<Button type="submit">Update your bio</Button>
+			</Form>
 		</div>
 	)
 }

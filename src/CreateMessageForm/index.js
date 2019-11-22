@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Form, Button, TextArea, Label} from 'semantic-ui-react'
 
 class CreateMessage extends Component{
 	constructor(props){
@@ -16,25 +17,25 @@ class CreateMessage extends Component{
 	render(){
 		return (
 			<div>
-				<h4>Create Message</h4>
-				<form onSubmit={(e) => this.props.addMessage(e, this.state)}>
-				<h5>Sender:</h5>
-				<input
+				<Label>Create Message</Label>
+				<Form onSubmit={(e) => this.props.addMessage(e, this.state)}>
+				<Label>Sender:</Label>
+				<Form.Input
 				type='text'
 				name="recipient_user"
 				value={this.state.recipient_user} 
 				onChange={this.handleChange} 
 				/>
-				<h5>message:</h5>
-				<input
+				<Label>message:</Label>
+				<Form.Input
 				type='text'
 				name="message_text"
 				value={this.state.message_text} 
 				onChange={this.handleChange} 
 				/>
-				<button type="Submit">send</button>
+				<Button type="Submit">send</Button>
 					
-				</form>
+				</Form>
 			</div>
 		)
 	}

@@ -1,7 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import LoginRegisterForm from "./LoginRegisterForm"
+import LoginRegisterForm from './LoginRegisterForm'
+import UserContainer from './UserContainer'
 
 class App extends React.Component {
   constructor(){

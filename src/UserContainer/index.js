@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import CreateMessage from '../CreateMessage'
+import CreateMessageForm from '../CreateMessageForm'
 import EditContainer from '../EditUser'
 
 class UserContainer extends Component {
@@ -10,4 +10,10 @@ class UserContainer extends Component {
 		}
 
 	}
+	render(){
+		return(
+			<h1>yo</h1>
+		)
+	}
 }
+export default UserContainer
