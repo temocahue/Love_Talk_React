@@ -39,24 +39,75 @@ class LoginRegisterForm extends React.Component {
     }
     switchForm = () => {
         if (this.state.action === 'login') {
+        	console.log("switching to register form")
             this.setState({
                 action: 'register'
             })
         } else {
+        	console.log("switching to login form")
             this.setState({
                 action: 'login'
             })
         }
     }
     handleChange = (e) => {
+
         this.setState({
             [e.target.name]: e.target.value
         })
     }
-    handleSubmit = (e) => {
+    handleSubmit = async (e) => {
         e.preventDefault()
-        this.loginRegister()
+    	console.log('lets logging');
 
+    	const userLogin = {	
+    		email: this.state.email,
+    		password: this.state.password
+    	}
+    	const registerInfo = {
+    		username: this.state.username,
+    		bio: this.state.bio,
+    		age:this.state.age,
+    		email: this.state.email,
+    		gender: this.state.gender,
+    		preference: this.state.preference,
+    		password: this.state.password
+    	}
+    	if (this.state.action === 'login' ){
+	        try{
+	        	const users = await fetch(process.env.REACT_APP_API_URL + '/api/v1/users/login', {
+	        		method: 'POST',
+	        		credentials: 'include',
+	        		body: JSON.stringify(userLogin),
+	        		headers: {
+	        			'Content-Type': 'application/json'
+	        		}
+	        	});
+	        	const parseUser = await users.json();
+	        	console.log(parseUser);
+
+	        	this.setState({
+	        		users: parseUser.data
+	        	})
+	        	this.loginRegister()
+	        } catch(err){
+	        	console.log("error: ",err);
+	        }
+    	} else {
+		    try {
+		    console.log('THIS IS Register!!!!!!!!!');
+		    const response = await fetch(process.env.REACT_APP_API_URL + '/api/v1/users/register', {
+		      method: "POST",
+		      credential: 'include',
+		      body: JSON.stringify(registerInfo),
+		      headers: {
+		        'Content-Type': 'application/json'
+		      }
+		    })
+		    } catch (err) {
+		    	console.log('error', err);
+		    }
+    	}
     }
     render() {
         return (
@@ -70,10 +121,10 @@ class LoginRegisterForm extends React.Component {
 						<Form.Field>
 						<Label>Username:</Label>
 						<Form.Input
-						type="text"
-						name="username"
-						value={this.state.username}
-						onChange={this.handleChange}
+							type="text"
+							name="username"
+							value={this.state.username}
+							onChange={this.handleChange}
 						/>
 						</Form.Field>
 						<Form.Field>

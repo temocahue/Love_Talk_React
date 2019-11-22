@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Button, TextArea, Label} from 'semantic-ui-react'
+import { Form, Button, Label} from 'semantic-ui-react'
 
 class CreateMessage extends Component{
 	constructor(props){

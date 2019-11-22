@@ -7,11 +7,12 @@ function UserList(props) {
 			<Card key={user.id}>
 				<Card.Content>
 					<Card.Header>{user.username}</Card.Header>
+					<Card.Description>{users.gender}</Card.Description>
+					<Card.Description>{users.age}</Card.Description>
 					<Card.Description>{users.bio}</Card.Description>
 				</Card.Content>
 				<Card.Content extra>
-					<Button onClick={() => props.deleteUser(user.id)}>Delete User</Button>
-					<Button onClick={() => props.editUser(user.id)}>Edit User</Button>
+					<Button onClick={() => props.messeageUser(user.id)}>Message User</Button>
 				</Card.Content>
 			</Card>
 		)

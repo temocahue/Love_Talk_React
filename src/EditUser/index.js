@@ -1,16 +1,18 @@
 import React, { Component } from 'react'
-import { Form, Button, TextArea, Label} from 'semantic-ui-react'
+import { Form, Button, TextArea, Label, Modal} from 'semantic-ui-react'
 
 
 function EditUser(props) {
 	return(
-		<div>
+		<Modal open={props.open} closeIcon='true' onClose={props.closeModal}>
 			<Form onSubmit={props.updateUser}>
 				<Label>Bio:</Label>
 				<Form.TextArea type='text' name='bio' value={props.updateUser.bio} onChange={props.handleEditChange}/>
-				<Button type="submit">Update your bio</Button>
+				<Modal.Actions>
+				<Button type="submit" color='black'>Update your bio</Button>
+				</Modal.Actions>
 			</Form>
-		</div>
+		</Modal>
 	)
 }
 

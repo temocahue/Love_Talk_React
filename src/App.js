@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import LoginRegisterForm from './LoginRegisterForm'
 import UserContainer from './UserContainer'
@@ -13,7 +12,7 @@ class App extends React.Component {
     }
   }
   login = async (loginInfo) => {
-    console.log(process.env);
+    console.log(process.env.REACT_APP_API_URL);
     const response = await fetch(process.env.REACT_APP_API_URL + '/api/v1/users/login', {
       method: "POST",
       credential: 'include',
