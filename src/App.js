@@ -55,10 +55,18 @@ class App extends React.Component {
   render(){
     return(
       <div className="App">
-      <LoginRegisterForm login={this.login} register={this.register}/>
+      {
+        this.state.loggedIn
+        ?
+        <UserContainer />
+        :
+        <LoginRegisterForm login={this.login} register={this.register}/>
+      }
       </div>
-    )
+    );
   }
 
 }
+
+
 export default App;
