@@ -34,7 +34,7 @@ class App extends React.Component {
     }
   }
   register = async (registerInfo) => {
-    const response = await fetch(process.env.REACT_APP_API_URL + '/api/v1/users/register/', {
+    const response = await fetch(process.env.REACT_APP_API_URL + '/api/v1/users/register', {
       method: "POST",
       credential: 'include',
       body: JSON.stringify(registerInfo),

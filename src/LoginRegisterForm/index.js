@@ -10,7 +10,7 @@ class LoginRegisterForm extends React.Component {
             password: '',
             username: '',
             bio: '',
-            age: null,
+            age: 18,
             preference: '',
             gender: '',
             action: 'login'
@@ -24,7 +24,18 @@ class LoginRegisterForm extends React.Component {
                 password: this.state.password
 
             })
+        }else {
+        	this.props.register({
+        		username: this.state.username,
+        		bio: this.state.bio,
+        		age:this.state.age,
+        		email: this.state.email,
+        		gender: this.state.gender,
+        		preference: this.state.preference,
+        		password: this.state.password
+        	})
         }
+
     }
     switchForm = () => {
         if (this.state.action === 'login') {
@@ -77,7 +88,7 @@ class LoginRegisterForm extends React.Component {
 				<Form.Field>
 				<Label>Age:</Label>
 				<Form.Input
-				type="text"
+				type="number"
 				name="age"
 				value={this.state.age}
 				onChange={this.handleChange}
@@ -117,7 +128,7 @@ class LoginRegisterForm extends React.Component {
 				<Form.Field>
 				<Label>Password:</Label>
 				<Form.Input
-				type="text"
+				type="password"
 				name="password"
 				value={this.state.password}
 				onChange={this.handleChange}

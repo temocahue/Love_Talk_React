@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import CreateMessageForm from '../CreateMessageForm'
+import CreateMessage from '../CreateMessage'
 import EditContainer from '../EditUser'
 
 class UserContainer extends Component {
@@ -7,13 +7,11 @@ class UserContainer extends Component {
 		super(props)
 		this.state = {
 			user: [],
+			
+
+
+
 		}
 
 	}
-	render(){
-		return(
-			<h1>yo</h1>
-		)
-	}
 }
-export default UserContainer
