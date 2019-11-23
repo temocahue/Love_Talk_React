@@ -12,7 +12,8 @@ class App extends React.Component {
     }
   }
   login = async (loginInfo) => {
-    console.log(process.env.REACT_APP_API_URL);
+    console.log('THIS IS THE APP.JS in the login')
+    // console.log(process.env.REACT_APP_API_URL);
     const response = await fetch(process.env.REACT_APP_API_URL + '/api/v1/users/login', {
       method: "POST",
       credential: 'include',
@@ -33,6 +34,7 @@ class App extends React.Component {
     }
   }
   register = async (registerInfo) => {
+    console.log('this is the app.js in the register')
     const response = await fetch(process.env.REACT_APP_API_URL + '/api/v1/users/register', {
       method: "POST",
       credential: 'include',
@@ -55,6 +57,7 @@ class App extends React.Component {
   render(){
     return(
       <div className="App">
+      <h1>LOVE TALK</h1>
       {
         this.state.loggedIn
         ?

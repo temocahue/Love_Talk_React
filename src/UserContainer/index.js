@@ -2,13 +2,16 @@ import React, { Component } from 'react'
 import CreateMessage from '../CreateMessageForm'
 import EditUser from '../EditUser'
 import UserList from '../UserList'
+import MessageContainer from '../MessageContainer'
 
 class UserContainer extends Component {
 	constructor(props){
 		super(props)
 		this.state = {
 			users: [],
+			messages: [],
 			editModalOpen: false,
+			messageModalOpen: false,
 			userToEdit:{
 				bio: ''
 			}
@@ -17,6 +20,7 @@ class UserContainer extends Component {
 	}
 	componentDidMount(){
 		this.getUsers();
+		this.getMessages();
 	}
 	getUsers = async () => {
 		try {
@@ -32,6 +36,24 @@ class UserContainer extends Component {
 			console.log(err);
 		}
 	}
+	getMessages = async () => {
+		try {
+			const messages = await fetch(process.env.REACT_APP_API_URL + '/api/v1/messages/', {
+				credentials:'include'
+			});
+			const parsedMessages = await messages.json();
+			console.log(parsedMessages);
+			this.setState({
+				messages: parsedMessages.data
+			})
+		}
+		catch (err) {
+			console.log(err)
+		}
+	
+
+	}
+	//need to change this to delete individual account
 	deleteUser = async (id) => {
 		const deleteUserAccountResponse = await fetch(process.env.REACT_APP_API_URL + '/api/v1/users/', {
 			method: 'DELETE',
@@ -95,11 +117,11 @@ class UserContainer extends Component {
 			editModalOpen: true
 		})
 	}
-
 	render(){
 		return(
-			<div>
-			<UserList users={this.state.users} messageUser={this.messageUser}/>
+			<div>	
+			<UserList users={this.state.users} messageUser={this.state.messages}/>
+			<MessageContainer messageModalOpen={this.state.messageModalOpen}/>
 			<EditUser open={this.state.editModalOpen}
 			updateUser={this.updateUser}
 			userToEdit={this.state.userToEdit}

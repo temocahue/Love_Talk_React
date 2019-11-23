@@ -24,27 +24,27 @@ class LoginRegisterForm extends React.Component {
                 password: this.state.password
 
             })
-        }else {
-        	this.props.register({
-        		username: this.state.username,
-        		bio: this.state.bio,
-        		age:this.state.age,
-        		email: this.state.email,
-        		gender: this.state.gender,
-        		preference: this.state.preference,
-        		password: this.state.password
-        	})
+        } else {
+            this.props.register({
+                username: this.state.username,
+                bio: this.state.bio,
+                age: this.state.age,
+                email: this.state.email,
+                gender: this.state.gender,
+                preference: this.state.preference,
+                password: this.state.password
+            })
         }
 
     }
     switchForm = () => {
         if (this.state.action === 'login') {
-        	console.log("switching to register form")
+            console.log("switching to register form")
             this.setState({
                 action: 'register'
             })
         } else {
-        	console.log("switching to login form")
+            console.log("switching to login form")
             this.setState({
                 action: 'login'
             })
@@ -58,56 +58,57 @@ class LoginRegisterForm extends React.Component {
     }
     handleSubmit = async (e) => {
         e.preventDefault()
-    	console.log('lets logging');
+        console.log('lets logging');
 
-    	const userLogin = {	
-    		email: this.state.email,
-    		password: this.state.password
-    	}
-    	const registerInfo = {
-    		username: this.state.username,
-    		bio: this.state.bio,
-    		age:this.state.age,
-    		email: this.state.email,
-    		gender: this.state.gender,
-    		preference: this.state.preference,
-    		password: this.state.password
-    	}
-    	if (this.state.action === 'login' ){
-	        try{
-	        	const users = await fetch(process.env.REACT_APP_API_URL + '/api/v1/users/login', {
-	        		method: 'POST',
-	        		credentials: 'include',
-	        		body: JSON.stringify(userLogin),
-	        		headers: {
-	        			'Content-Type': 'application/json'
-	        		}
-	        	});
-	        	const parseUser = await users.json();
-	        	console.log(parseUser);
+        const userLogin = {
+            email: this.state.email,
+            password: this.state.password
+        }
+        const registerInfo = {
+            username: this.state.username,
+            bio: this.state.bio,
+            age: this.state.age,
+            email: this.state.email,
+            gender: this.state.gender,
+            preference: this.state.preference,
+            password: this.state.password
+        }
+        if (this.state.action === 'login') {
+            try {
+                const users = await fetch(process.env.REACT_APP_API_URL + '/api/v1/users/login', {
+                    method: 'POST',
+                    credentials: 'include',
+                    body: JSON.stringify(userLogin),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                const parseUser = await users.json();
+                console.log(parseUser);
 
-	        	this.setState({
-	        		users: parseUser.data
-	        	})
-	        	this.loginRegister()
-	        } catch(err){
-	        	console.log("error: ",err);
-	        }
-    	} else {
-		    try {
-		    console.log('THIS IS Register!!!!!!!!!');
-		    const response = await fetch(process.env.REACT_APP_API_URL + '/api/v1/users/register', {
-		      method: "POST",
-		      credential: 'include',
-		      body: JSON.stringify(registerInfo),
-		      headers: {
-		        'Content-Type': 'application/json'
-		      }
-		    })
-		    } catch (err) {
-		    	console.log('error', err);
-		    }
-    	}
+                this.setState({
+                    users: parseUser.data
+                })
+                this.loginRegister()
+            } catch (err) {
+                console.log("error: ", err);
+            }
+        } else {
+            try {
+            	console.log('register')
+                const response = await fetch(process.env.REACT_APP_API_URL + '/api/v1/users/register', {
+                    method: "POST",
+                    credential: 'include',
+                    body: JSON.stringify(registerInfo),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                // this.loginRegister()
+            } catch (err) {
+                console.log('error', err);
+            }
+        }
     }
     render() {
         return (

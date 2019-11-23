@@ -1,20 +1,21 @@
 import React from 'react'
-import { Card, Button } from 'semantic-ui-react'
+import { Card, Button, Image } from 'semantic-ui-react'
 
 function UserList(props) {
+	// const src = '/images/wireframe/white-image.png';
 	const users = props.users.map((user) => {
 		return(
-			<Card key={user.id}>
-				<Card.Content>
-					<Card.Header>{user.username}</Card.Header>
-					<Card.Description>{users.gender}</Card.Description>
-					<Card.Description>{users.age}</Card.Description>
-					<Card.Description>{users.bio}</Card.Description>
-				</Card.Content>
-				<Card.Content extra>
-					<Button onClick={() => props.messeageUser(user.id)}>Message User</Button>
-				</Card.Content>
-			</Card>
+				<Card color='red' key={user.id}>
+					<Card.Content>
+						<Card.Header>{user.username}</Card.Header>
+						<Card.Description>{user.gender}</Card.Description>
+						<Card.Description>{user.age}</Card.Description>
+						<Card.Description>{user.bio}</Card.Description>
+					</Card.Content>
+					<Card.Content extra>
+						<Button onClick={() => props.messeageUser(user.id)}>Message User</Button>
+					</Card.Content>
+				</Card>
 		)
 
 	})
