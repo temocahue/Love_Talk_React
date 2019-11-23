@@ -4,6 +4,7 @@ import EditUser from '../EditUser'
 import UserList from '../UserList'
 import MessageContainer from '../MessageContainer'
 
+// Need to get users bio and functionality to send messages to matches
 class UserContainer extends Component {
 	constructor(props){
 		super(props)
