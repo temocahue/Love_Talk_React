@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Card, Button, Image } from 'semantic-ui-react'
 
 function UserList(props) {
@@ -13,7 +13,7 @@ function UserList(props) {
 						<Card.Description>{user.bio}</Card.Description>
 					</Card.Content>
 					<Card.Content extra>
-						<Button onClick={() => props.messeageUser(user.id)}>Message User</Button>
+						<Button onClick={() => props.sendMessage(user.id)}>Message User</Button>
 					</Card.Content>
 				</Card>
 		)

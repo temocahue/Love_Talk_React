@@ -121,7 +121,7 @@ class UserContainer extends Component {
 	render(){
 		return(
 			<div>	
-			<UserList users={this.state.users} messageUser={this.state.messages}/>
+			<UserList users={this.state.users}/>
 			<MessageContainer messageModalOpen={this.state.messageModalOpen}/>
 			<EditUser open={this.state.editModalOpen}
 			updateUser={this.updateUser}

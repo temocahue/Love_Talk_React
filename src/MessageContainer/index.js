@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import UserList from '../UserList';
 
 //I want this component to either be showing or sending messages
 // if we are sending messages I want to change the state and have a Modal pop up 
@@ -7,14 +8,30 @@ class MessageContainer extends Component {
         super(props);
         this.state = {
             users: [],
-            messages: []
-
+            messages: [],
+            messageModalOpen: false,
+            sendMessageMessage: false,
+            messageToCreate:{
+                message_text: '',
+                recipient_user: '',
+                sender_user: ''
+            }
         }
     }
-    messageUser = async (e, recipientID, messageFromTheForm) => {
+    componentDidMount(){
+        this.getMessages();
+    }
+    handleEditChange = (e) => {
+        this.setState({
+        })
+    }
+    sendMessage = async (e) => {
         e.preventDefault();
+        // Need to define below
+        const recipientID = 'here'
+        const messageFromTheForm = 'she'
         try {
-            const createdMessageResponse = await fetch(process.env.REACT_APP_API_URL + '/api/v1/messages' + recipientID, {
+            const createdMessageResponse = await fetch(process.env.REACT_APP_API_URL + '/api/v1/messages/' + recipientID, {
                 method: 'POST',
                 credentials: 'include',
                 body: JSON.stringify(messageFromTheForm),
@@ -28,12 +45,43 @@ class MessageContainer extends Component {
             console.log(err)
         }
     }
-    sendMessage = async () => {
+    deleteMessage = async (id) => {
+        console.log(id);
+        const deleteMessageResponse = await fetch(process.env.REACT_APP_API_URL + '/api/v1/messages' + id, {
+            method: 'DELETE',
+            credentials: 'include'
+        });
+        const deleteMessageParsed = await deleteMessageResponse.json();
+        console.log(deleteMessageParsed);
+        this.setState({messages: this.state.messages.filter((messages) => messages.id !== id)})
 
+    }
+    getMessages = async () => {
+        try {
+            const messages = await fetch(process.env.REACT_APP_API_URL + '/api/v1/messages', {
+                credentials: 'include'
+            });
+            const parsedMessages = await messages.json();
+            console.log(parsedMessages);
+            this.setState({
+                messages: parsedMessages.data
+            })
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+    closeModal = () => {
+        this.setState({
+            editModalOpen: false
+        })
     }
     render() {
         return (
+            <div>
             <h1>This is the messages Component</h1>
+            <UserList users={this.state.users} sendMessage={this.sendMessage}/>
+            </div>
         )
     }
 
