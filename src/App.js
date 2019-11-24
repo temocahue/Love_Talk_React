@@ -44,6 +44,7 @@ class App extends React.Component {
       }
     })
     const parsedLoginResponse = await response.json()
+    // console.log(parsedLoginResponse)
     if (parsedLoginResponse.status.code === 201){
       this.setState({
         loggedIn: true,
@@ -63,7 +64,7 @@ class App extends React.Component {
         ?
         <UserContainer />
         :
-        <LoginRegisterForm login={this.login} register={this.register}/>
+        <LoginRegisterForm login={this.login} register={this.register} />
       }
       </div>
     );

@@ -18,6 +18,7 @@ class LoginRegisterForm extends React.Component {
         }
     }
     loginRegister = () => {
+    	console.log('I am in loginRegister() in the LoginRegisterForm')
         if (this.state.action === "login") {
             this.props.login({
                 email: this.state.email,
@@ -25,14 +26,18 @@ class LoginRegisterForm extends React.Component {
 
             })
         } else {
-            this.props.register({
-                username: this.state.username,
-                bio: this.state.bio,
-                age: this.state.age,
-                email: this.state.email,
-                gender: this.state.gender,
-                preference: this.state.preference,
-                password: this.state.password
+        	console.log('I am now in the else in loginRegister() looking for register info')
+            // this.props.register({
+            //     username: this.state.username,
+            //     bio: this.state.bio,
+            //     age: this.state.age,
+            //     preference: this.state.preference,
+            //     gender: this.state.gender,
+            //     email: this.state.email,
+            //     password: this.state.password
+            // })
+            this.setState({
+            	action:'login'
             })
         }
 
@@ -51,14 +56,14 @@ class LoginRegisterForm extends React.Component {
         }
     }
     handleChange = (e) => {
-
+    	console.log('I am handling the change in LoginRegisterForm');
         this.setState({
             [e.target.name]: e.target.value
         })
     }
     handleSubmit = async (e) => {
         e.preventDefault()
-        console.log('lets logging');
+        console.log('I am currently in LoginRegisterForm handleSubmit ');
 
         const userLogin = {
             email: this.state.email,
@@ -75,6 +80,7 @@ class LoginRegisterForm extends React.Component {
         }
         if (this.state.action === 'login') {
             try {
+            	console.log('I am in the try of the login of handleSubmit')
                 const users = await fetch(process.env.REACT_APP_API_URL + '/api/v1/users/login', {
                     method: 'POST',
                     credentials: 'include',
@@ -89,13 +95,14 @@ class LoginRegisterForm extends React.Component {
                 this.setState({
                     users: parseUser.data
                 })
+                console.log('I am about to call the this.loginRegister')
                 this.loginRegister()
             } catch (err) {
                 console.log("error: ", err);
             }
         } else {
             try {
-            	console.log('register')
+            	console.log('I am in the register of the LoginRegisterForm of the handleSubmit')
                 const response = await fetch(process.env.REACT_APP_API_URL + '/api/v1/users/register', {
                     method: "POST",
                     credential: 'include',
@@ -104,7 +111,8 @@ class LoginRegisterForm extends React.Component {
                         'Content-Type': 'application/json'
                     }
                 })
-                // this.loginRegister()
+                console.log('I am about to call the this.loginRegister')
+                this.loginRegister()
             } catch (err) {
                 console.log('error', err);
             }
