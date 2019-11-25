@@ -7,8 +7,9 @@ class App extends React.Component {
   constructor(){
     super()
     this.state = {
-      loggedIn: false,
-      loggedInUserEmail: null
+
+      loggedIn: true,
+      loggedInUser: null
     }
   }
   login = async (loginInfo) => {
@@ -26,7 +27,7 @@ class App extends React.Component {
     if (parsedLoginResponse.status.code === 200){
       this.setState({
         loggedIn: true,
-        loggedInUserEmail: parsedLoginResponse.data.email
+        loggedInUser: parsedLoginResponse.data
       })
     } else {
       console.log("Login Failed");
@@ -47,7 +48,7 @@ class App extends React.Component {
     if (parsedLoginResponse.status.code === 201){
       this.setState({
         loggedIn: true,
-        loggedInUserEmail: parsedLoginResponse.data.email
+        loggedInUser: parsedLoginResponse.data
       })
     } else {
       console.log("Register Failed");
@@ -57,7 +58,7 @@ class App extends React.Component {
   render(){
     return(
       <div className="App">
-      <h1>LOVE TALK</h1>
+      <h1>LOVE❤️TALK</h1>
       {
         this.state.loggedIn
         ?

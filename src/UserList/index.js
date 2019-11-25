@@ -1,8 +1,10 @@
 import React from 'react'
+
 import { Card, Button, Image } from 'semantic-ui-react'
 
 function UserList(props) {
 	// const src = '/images/wireframe/white-image.png';
+	console.log("this is props in user list >>>", props);
 	const users = props.users.map((user) => {
 		return(
 				<Card color='red' key={user.id}>
@@ -13,7 +15,7 @@ function UserList(props) {
 						<Card.Description>{user.bio}</Card.Description>
 					</Card.Content>
 					<Card.Content extra>
-						<Button onClick={() => props.messeageUser(user.id)}>Message User</Button>
+						<Button onClick={() => props.openMessageModal(user.id)}>Message User</Button>
 					</Card.Content>
 				</Card>
 		)

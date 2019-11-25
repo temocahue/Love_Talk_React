@@ -25,14 +25,8 @@ class LoginRegisterForm extends React.Component {
 
             })
         } else {
-            this.props.register({
-                username: this.state.username,
-                bio: this.state.bio,
-                age: this.state.age,
-                email: this.state.email,
-                gender: this.state.gender,
-                preference: this.state.preference,
-                password: this.state.password
+            this.setState({
+                action: 'login'
             })
         }
 
@@ -104,7 +98,7 @@ class LoginRegisterForm extends React.Component {
                         'Content-Type': 'application/json'
                     }
                 })
-                // this.loginRegister()
+                this.loginRegister()
             } catch (err) {
                 console.log('error', err);
             }

@@ -3,6 +3,8 @@ import CreateMessage from '../CreateMessageForm'
 import EditUser from '../EditUser'
 import UserList from '../UserList'
 import MessageContainer from '../MessageContainer'
+import UserPage from '../UserPage'
+import App from '../App'
 
 class UserContainer extends Component {
 	constructor(props){
@@ -13,8 +15,9 @@ class UserContainer extends Component {
 			editModalOpen: false,
 			messageModalOpen: false,
 			userToEdit:{
-				bio: ''
+				bio: []
 			}
+
 		}
 
 	}
@@ -22,6 +25,7 @@ class UserContainer extends Component {
 		this.getUsers();
 		this.getMessages();
 	}
+	
 	getUsers = async () => {
 		try {
 			const users = await fetch(process.env.REACT_APP_API_URL + '/api/v1/users/', {
@@ -34,8 +38,11 @@ class UserContainer extends Component {
 			})
 		} catch(err){
 			console.log(err);
+
+
 		}
-	}
+
+	} 
 	getMessages = async () => {
 		try {
 			const messages = await fetch(process.env.REACT_APP_API_URL + '/api/v1/messages/', {
@@ -70,8 +77,10 @@ class UserContainer extends Component {
 			userToEdit: {
 				...userToEdit
 			}
+
 		})
 	}
+
 	handleEditChange = (event) => {
 		this.setState({
 			userToEdit:{
@@ -91,11 +100,12 @@ class UserContainer extends Component {
 				headers: {
 					'Content-Type': 'application/json'
 				}
+
 			})
 			const updateResponseParsed = await updateResponse.json()
-			
 			console.log('reponse from db after trying to do update');
 			console.log(updateResponseParsed);
+
 
 			const newUserArrayWIthUpdate = this.state.users.map((user) => {
 				if(user.id === updateResponseParsed.data.id) {
@@ -103,8 +113,10 @@ class UserContainer extends Component {
 				}
 				return user
 			})
+
 			this.setState({
-				users: newUserArrayWIthUpdate
+				users: newUserArrayWIthUpdate,
+				
 			})
 			this.closeModal()
 
@@ -112,20 +124,38 @@ class UserContainer extends Component {
 			console.log(err);
 		}
 	}
-	closeModal = () =>  {
+	 openMessageModal = (userId) => {
+        const messageUser = this.state.messages.find(user => user.id === userId)
+        this.setState({
+            messageModalOpen: true,
+        })
+    }
+     openEditModal = (userId) => {
+        const messageUser = this.state.messages.find(user => user.id === userId)
+        this.setState({
+            editModalOpen: true
+        })
+    }
+	closeEditModal = () =>  {
 		this.setState({
-			editModalOpen: true
+			editModalOpen: false
+		})
+	}
+	closeMessageModal = () =>  {
+		this.setState({
+			messageModalOpen: false
 		})
 	}
 	render(){
 		return(
-			<div>	
-			<UserList users={this.state.users} messageUser={this.state.messages}/>
-			<MessageContainer messageModalOpen={this.state.messageModalOpen}/>
+			<div>
+			<CreateMessage messageModalOpen={this.state.messageModalOpen} closeMessageModal={this.closeMessageModal}/>      
+			<UserList users={this.state.users} openMessageModal={this.openMessageModal}/>
+			<MessageContainer messageModalOpen={this.state.messageModalOpen} openMessageModal={this.openMessageModal} closeMessageModal={this.closeMessageModal}/>
 			<EditUser open={this.state.editModalOpen}
 			updateUser={this.updateUser}
 			userToEdit={this.state.userToEdit}
-			closeModal={this.closeModal}
+			closeEditModal={this.closeModal}
 			handleEditChange={this.handleEditChange}
 			/>
 			</div>
