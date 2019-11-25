@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import UserList from '../UserList';
+import CreateMessageForm from '../CreateMessageForm'
 
 //I want this component to either be showing or sending messages
 // if we are sending messages I want to change the state and have a Modal pop up 
@@ -9,7 +10,6 @@ class MessageContainer extends Component {
         this.state = {
             users: [],
             messages: [],
-            messageModalOpen: false,
             sendMessageMessage: false,
             messageToCreate:{
                 message_text: '',
@@ -23,10 +23,12 @@ class MessageContainer extends Component {
     }
     handleEditChange = (e) => {
         this.setState({
+
         })
     }
     sendMessage = async (e) => {
         e.preventDefault();
+        console.log(e);
         // Need to define below
         const recipientID = 'here'
         const messageFromTheForm = 'she'
@@ -58,11 +60,12 @@ class MessageContainer extends Component {
     }
     getMessages = async () => {
         try {
-            const messages = await fetch(process.env.REACT_APP_API_URL + '/api/v1/messages', {
+            const messages = await fetch(process.env.REACT_APP_API_URL + '/api/v1/messages/', {
                 credentials: 'include'
             });
             const parsedMessages = await messages.json();
-            console.log(parsedMessages);
+            console.log('successfully fetched messages. This is the getMessages() in MessageContainer')
+            console.log('parsedMessages', parsedMessages);
             this.setState({
                 messages: parsedMessages.data
             })
@@ -73,14 +76,24 @@ class MessageContainer extends Component {
     }
     closeModal = () => {
         this.setState({
-            editModalOpen: false
+            messageModalOpen: false
         })
     }
     render() {
         return (
             <div>
-            <h1>This is the messages Component</h1>
-            <UserList users={this.state.users} sendMessage={this.sendMessage}/>
+            {
+                this.props.messageModalOpen === true ? 
+            <CreateMessageForm 
+            openMessageModal={this.props.openMessageModal}
+            sendMessage={this.sendMessage}
+                closeModal={this.props.closeModal}
+            />
+            :
+            <UserList 
+            users={this.state.users} 
+            openMessageModal={this.props.openMessageModal}/>
+            }
             </div>
         )
     }

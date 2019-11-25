@@ -1,24 +1,29 @@
 import React, { Component } from 'react';
-import { Form, Button, Label} from 'semantic-ui-react'
+import { Modal, Form, Header, Button, Label} from 'semantic-ui-react'
 
 class CreateMessage extends Component{
-	constructor(props){
-		super()
-		this.state = {
-			sender_user: null,
-			message_text: '',
-			recipient_user: null
-		}
-
-	}
-	handleChange = (e) => {
-		this.setState({[e.currentTarget.name]: e.currentTarget.value})
-	}
+	constructor() {
+        super();
+        this.state = {
+            users: [],
+            messages: [],
+            messageModalOpen: false,
+            sendMessageMessage: false,
+            messageToCreate:{
+                message_text: '',
+                recipient_user: '',
+                sender_user: ''
+            }
+        }
+    }
+    handleChange = (e) => {
+    	this.setState({[e.currentTarget.name]: e.currentTarget.value})	
+    }
 	render(){
 		return (
-			<div>
-				<Label>Create Message</Label>
-				<Form onSubmit={(e) => this.props.addMessage(e, this.state)}>
+			<Modal closeIcon>
+				<Header>Create Message</Header>
+				<Form onSubmit={(e) => this.props.sendMessage(e, this.state)}>
 				<Label>Sender:</Label>
 				<Form.Input
 				type='text'
@@ -26,7 +31,7 @@ class CreateMessage extends Component{
 				value={this.state.recipient_user} 
 				onChange={this.handleChange} 
 				/>
-				<Label>message:</Label>
+				<Label>Message:</Label>
 				<Form.Input
 				type='text'
 				name="message_text"
@@ -36,7 +41,7 @@ class CreateMessage extends Component{
 				<Button type="Submit">send</Button>
 					
 				</Form>
-			</div>
+			</Modal>
 		)
 	}
 }

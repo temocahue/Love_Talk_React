@@ -13,7 +13,7 @@ function UserList(props) {
 						<Card.Description>{user.bio}</Card.Description>
 					</Card.Content>
 					<Card.Content extra>
-						<Button onClick={() => props.sendMessage(user.id)}>Message User</Button>
+						<Button onClick={() => props.openMessageModal(user.id)}>Message User</Button>
 					</Card.Content>
 				</Card>
 		)

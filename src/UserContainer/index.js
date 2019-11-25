@@ -113,20 +113,37 @@ class UserContainer extends Component {
 			console.log(err);
 		}
 	}
-	closeModal = () =>  {
+	 openMessageModal = (userId) => {
+        const messageUser = this.state.messages.find(user => user.id === userId)
+        this.setState({
+            messageModalOpen: true,
+        })
+    }
+     openEditModal = (userId) => {
+        const messageUser = this.state.messages.find(user => user.id === userId)
+        this.setState({
+            editModalOpen: true,
+        })
+    }
+	closeEditModal = () =>  {
 		this.setState({
 			editModalOpen: true
+		})
+	}
+	closeMessageModal = () =>  {
+		this.setState({
+			messageModalOpen: true
 		})
 	}
 	render(){
 		return(
 			<div>	
-			<UserList users={this.state.users}/>
-			<MessageContainer messageModalOpen={this.state.messageModalOpen}/>
+			<UserList users={this.state.users} openMessageModal={this.openMessageModal}/>
+			<MessageContainer messageModalOpen={this.state.messageModalOpen} openMessageModal={this.openMessageModal} closeMessageModal={this.closeMessageModal}/>
 			<EditUser open={this.state.editModalOpen}
 			updateUser={this.updateUser}
 			userToEdit={this.state.userToEdit}
-			closeModal={this.closeModal}
+			closeEditModal={this.closeModal}
 			handleEditChange={this.handleEditChange}
 			/>
 			</div>

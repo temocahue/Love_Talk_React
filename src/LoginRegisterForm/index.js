@@ -129,7 +129,7 @@ class LoginRegisterForm extends React.Component {
 					<h1>Create Account Here</h1>
 						<Form.Field>
 						<Label>Username:</Label>
-						<Form.Input
+						<Form.Input fluid
 							type="text"
 							name="username"
 							value={this.state.username}
@@ -138,7 +138,7 @@ class LoginRegisterForm extends React.Component {
 						</Form.Field>
 						<Form.Field>
 						<Label>Bio:</Label>
-				<Form.Input
+				<Form.Input fluid
 				type="text"
 				name="bio"
 				value={this.state.bio}
@@ -147,7 +147,7 @@ class LoginRegisterForm extends React.Component {
 				</Form.Field>
 				<Form.Field>
 				<Label>Age:</Label>
-				<Form.Input
+				<Form.Input fluid
 				type="number"
 				name="age"
 				value={this.state.age}
@@ -156,7 +156,7 @@ class LoginRegisterForm extends React.Component {
 				</Form.Field>
 				<Form.Field>
 				<Label>Preference:</Label>
-				<Form.Input
+				<Form.Input fluid
 				type="text"
 				name="preference"
 				value={this.state.preference}
@@ -165,7 +165,7 @@ class LoginRegisterForm extends React.Component {
 				</Form.Field>
 				<Form.Field>
 				<Label>Gender:</Label>
-				<Form.Input
+				<Form.Input fluid
 				type="text"
 				name="gender"
 				value={this.state.gender}
@@ -178,7 +178,7 @@ class LoginRegisterForm extends React.Component {
 				}
 				<Form.Field>
 				<Label>Email:</Label>
-				<Form.Input
+				<Form.Input fluid
 				type="email"
 				name="email"
 				value={this.state.email}
