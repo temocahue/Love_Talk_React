@@ -9,6 +9,7 @@ function UserList(props) {
 		return(
 				<Card color='red' key={user.id}>
 					<Card.Content>
+						<h3>Your Matches:</h3>
 						<Card.Header>{user.username}</Card.Header>
 						<Card.Description>{user.gender}</Card.Description>
 						<Card.Description>{user.age}</Card.Description>

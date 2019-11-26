@@ -1,45 +1,21 @@
 import React, { Component } from 'react';
+import { Card, Button, Image } from 'semantic-ui-react'
 
-class UserPage extends Component {
-    constructor(){
-        super()
-        this.state = {
-        user: null
-        }
-    }
-    componentDidMount(){
-        this.login();
-    }
-   login = async (loginInfo) => {
-    console.log('THIS IS THE APP.JS in the login')
-    // console.log(process.env.REACT_APP_API_URL);
-    const response = await fetch(process.env.REACT_APP_API_URL + '/api/v1/users/login', {
-      method: "POST",
-      credential: 'include',
-      body: JSON.stringify(loginInfo),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    const parsedLoginResponse = await response.json()
-    if (parsedLoginResponse.status.code === 200){
-      this.setState({
-        user: parsedLoginResponse.data
-      })
-    } else {
-      console.log("Login Failed");
-      console.log(parsedLoginResponse);
-    }
-  }
+function UserPage(props) {
+  // const src = '/images/wireframe/white-image.png';
+  console.log("this is props in user page >>>", props);
 
-    render() {
-        return( 
-            <div>
-                <h1>this is users page</h1>
+    return( 
+        <Card color='red' key={props.userInfo.id}>
+          <Card.Content>
+            <h3>Your Profile Info:</h3>
+            <h4>{props.userInfo.username}</h4>
+            <Card.Description>{props.userInfo.gender}</Card.Description>
+            <Card.Description>{props.userInfo.age}</Card.Description>
+            <Card.Description>{props.userInfo.bio}</Card.Description>
+          </Card.Content>
+        </Card>
+    )
 
-            </div>
-        )
-    }
 }
-
-export default UserPage;
+export default UserPage

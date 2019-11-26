@@ -178,8 +178,10 @@ class UserContainer extends Component {
 				userToEdit={this.state.userToEdit}
 				closeEditModal={this.closeModal}
 				handleEditChange={this.handleEditChange}
+				
 			/>
 			<MessageContainer messages={this.state.messages} deleteMessage={this.deleteMessage}/>
+			<UserPage userInfo={this.props.loggedInUser}/>
 			</div>
 		)
 	}
