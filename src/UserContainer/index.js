@@ -16,7 +16,8 @@ class UserContainer extends Component {
 			messageModalOpen: false,
 			userToEdit:{
 				bio: []
-			}
+			},
+			messageUser: null
 
 		}
 
@@ -124,10 +125,24 @@ class UserContainer extends Component {
 			console.log(err);
 		}
 	}
+	deleteMessage = async (id) => {
+        console.log(id);
+        const deleteMessageResponse = await fetch(process.env.REACT_APP_API_URL + '/api/v1/messages/' + id, {
+            method: 'DELETE',
+            credentials: 'include'
+        });
+        const deleteMessageParsed = await deleteMessageResponse.json();
+        console.log(deleteMessageParsed);
+        this.setState({messages: this.state.messages.filter((messages) => messages.id !== id)})
+    }
 	 openMessageModal = (userId) => {
-        const messageUser = this.state.messages.find(user => user.id === userId)
+        const messageUser = this.state.users.filter(user => user.id === userId)
+
+        console.log('THIS IS openMessageModal:', messageUser);
         this.setState({
             messageModalOpen: true,
+            messageUser: messageUser[0]
+      
         })
     }
      openEditModal = (userId) => {
@@ -143,23 +158,31 @@ class UserContainer extends Component {
 	}
 	closeMessageModal = () =>  {
 		this.setState({
-			messageModalOpen: false
+			messageModalOpen: false,
+			messageUser: null
 		})
 	}
 	render(){
 		return(
 			<div>
-			<CreateMessage messageModalOpen={this.state.messageModalOpen} closeMessageModal={this.closeMessageModal}/>      
+			{ this.state.messageUser === null ? null :
+				<CreateMessage 
+					recipient={this.state.messageUser} 
+					messageModalOpen={this.state.messageModalOpen} 
+					closeMessageModal={this.closeMessageModal}/> }
+
 			<UserList users={this.state.users} openMessageModal={this.openMessageModal}/>
-			<MessageContainer messageModalOpen={this.state.messageModalOpen} openMessageModal={this.openMessageModal} closeMessageModal={this.closeMessageModal}/>
-			<EditUser open={this.state.editModalOpen}
-			updateUser={this.updateUser}
-			userToEdit={this.state.userToEdit}
-			closeEditModal={this.closeModal}
-			handleEditChange={this.handleEditChange}
+			<EditUser 
+				open={this.state.editModalOpen}
+				updateUser={this.updateUser}
+				userToEdit={this.state.userToEdit}
+				closeEditModal={this.closeModal}
+				handleEditChange={this.handleEditChange}
 			/>
+			<MessageContainer messages={this.state.messages} deleteMessage={this.deleteMessage}/>
 			</div>
 		)
 	}
 }
 export default UserContainer
+			// <MessageContainer messageModalOpen={this.state.messageModalOpen} openMessageModal={this.openMessageModal} closeMessageModal={this.closeMessageModal}/>

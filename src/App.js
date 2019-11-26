@@ -8,7 +8,7 @@ class App extends React.Component {
     super()
     this.state = {
 
-      loggedIn: true,
+      loggedIn: false,
       loggedInUser: null
     }
   }
@@ -62,10 +62,11 @@ class App extends React.Component {
       {
         this.state.loggedIn
         ?
-        <UserContainer />
+        <UserContainer loggedInUser={this.state.loggedInUser}/>
         :
         <LoginRegisterForm login={this.login} register={this.register}/>
       }
+
       </div>
     );
   }
